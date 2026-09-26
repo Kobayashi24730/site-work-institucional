@@ -6,7 +6,7 @@ import SectionHeading from "@/components/shared/SectionHeading";
 import ContactForm from "@/components/sections/ContactForm";
 
 const contactInfo = [
-  { icon: Mail, label: "E-mail", value: "contato@nexatech.com.br" },
+  { icon: Mail, label: "E-mail", value: "contato@nextech.com.br" },
   { icon: Phone, label: "Telefone", value: "+55 (11) 9999-0000" },
   { icon: MapPin, label: "Endereço", value: "São Paulo, SP — Brasil" },
 ];

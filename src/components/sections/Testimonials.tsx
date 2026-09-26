@@ -5,20 +5,20 @@ import SectionHeading from "@/components/shared/SectionHeading";
 const testimonials = [
   {
     name: "Ana Rodrigues",
-    role: "CTO, FinanceUp",
-    content: "A NexaTech transformou completamente nossa infraestrutura. A performance do sistema melhorou em 300% e os custos com cloud reduziram pela metade.",
+    role: "CTO, FinanceTech",
+    content: "A NexTech transformou completamente nossa infraestrutura. A performance do sistema melhorou em 300% e os custos com cloud reduziram pela metade.",
     rating: 5,
   },
   {
     name: "Carlos Mendes",
-    role: "CEO, LogiTrack",
+    role: "CEO, LogTrac",
     content: "Profissionalismo excepcional. Entregaram o projeto antes do prazo e com qualidade muito acima do esperado. Parceria que recomendo.",
     rating: 5,
   },
   {
     name: "Marina Silva",
-    role: "Head de Produto, EduPlus",
-    content: "A equipe da NexaTech entendeu perfeitamente nossas necessidades. O aplicativo que desenvolveram é intuitivo e nossos usuários adoram.",
+    role: "Head de Produto",
+    content: "A equipe da NexTech entendeu perfeitamente nossas necessidades. O aplicativo que desenvolveram é intuitivo e nossos usuários adoram.",
     rating: 5,
   },
 ];

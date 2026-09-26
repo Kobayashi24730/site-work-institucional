@@ -9,7 +9,7 @@ export default function Index() {
   return (
     <Layout>
       <Helmet>
-        <title>NexaTech — Soluções Digitais que Transformam Negócios</title>
+        <title>NexTech — Soluções Digitais que Transformam Negócios</title>
         <meta name="description" content="Desenvolvemos software de alta performance, consultoria tecnológica e soluções em nuvem para empresas que querem liderar o futuro." />
         <link rel="canonical" href="https://nexatech.com.br" />
       </Helmet>

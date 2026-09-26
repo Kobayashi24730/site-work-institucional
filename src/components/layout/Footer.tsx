@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="font-display text-xl font-bold tracking-tight">
-              Nexa<span className="text-gradient-primary">Tech</span>
+              Nex<span className="text-gradient-primary">Tech</span>
             </Link>
             <p className="mt-3 text-sm text-muted-foreground max-w-xs">
               Transformando negócios com tecnologia de ponta e soluções digitais inovadoras.
