@@ -1,6 +1,6 @@
 # 🏢 Site Work Institucional - Projeto de Estudo
 
-Este projeto é um **site institucional** desenvolvido com **React + TypeScript + Vite**, utilizando **Tailwind CSS** e componentes baseados em **shadcn/ui** (Radix UI).
+Este projeto é um **sistema SaaSs** desenvolvido com **React + TypeScript  + Vite + php**, utilizando **Tailwind CSS** e componentes baseados em **shadcn/ui** (Radix UI).
 
 ---
 
@@ -25,6 +25,7 @@ Este projeto foi desenvolvido com **fins educacionais**, visando:
 - **Tailwind CSS** — estilização
 - **shadcn/ui** (componentes Radix UI: dialog, dropdown, tabs, tooltip, etc.)
 - **React Router DOM** — roteamento
+- **php** — backend
 - **React Helmet Async** — gerenciamento de meta tags e SEO
 - **Framer Motion** — animações
 - **React Hook Form** + **Zod** — formulários e validação
@@ -39,6 +40,7 @@ Este projeto foi desenvolvido com **fins educacionais**, visando:
 
 ```
 site-work-institucional/
+├── backennd/
 ├── public/                 # Arquivos estáticos
 ├── src/                    # Código-fonte da aplicação
 ├── index.html
