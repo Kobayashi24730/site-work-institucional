@@ -1,6 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { ReactNode } from "react";
 
-type IconName =
+export type IconName =
   | "arrow"
   | "automation"
   | "check"
@@ -17,8 +17,8 @@ type IconName =
   | "sparkle"
   | "whatsapp"
   | "x";
-  
-const paths: Record<IconName, ReactNode> = {
+
+export const paths: Record<IconName, ReactNode> = {
   arrow: <><path d="M5 12h14" /><path d="m14 7 5 5-5 5" /></>,
   automation: <><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /><circle cx="12" cy="12" r="5" /><path d="m7 5 2 2M15 17l2 2M17 5l-2 2M9 17l-2 2" /></>,
   check: <path d="m5 12 4 4L19 6" />,
@@ -36,3 +36,11 @@ const paths: Record<IconName, ReactNode> = {
   whatsapp: <><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.7l1.6-4.6A8.5 8.5 0 1 1 20.5 11.7Z" /><path d="M8.2 7.6c.3-.3.7-.2.9.2l1 2c.1.3.1.5-.1.7l-.7.8c.7 1.5 1.8 2.6 3.3 3.3l.8-.8c.2-.2.5-.2.7-.1l1.9.9c.4.2.5.6.3.9-.5.9-1.5 1.3-2.5 1.1a9.4 9.4 0 0 1-6.5-6.2c-.3-1 0-2 .9-2.8Z" /></>,
   x: <path d="m6 6 12 12M18 6 6 18" />,
 };
+
+export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {paths[name]}
+    </svg>
+  );
+}

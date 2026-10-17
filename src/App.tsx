@@ -1,26 +1,8 @@
 import { useState, type ReactNode } from "react";
 import {ProductPreview} from "@/components/sections/ProductPreview";
 import {Logo} from "@/components/layout/Logo";
-import {Icon} from "@/components/layout/Icon";
+import {type IconName, Icon} from "@/components/layout/paths";
 import {Footer} from "@/components/layout/Footer";
-
-type IconName =
-  | "arrow"
-  | "automation"
-  | "check"
-  | "chevron"
-  | "clock"
-  | "headset"
-  | "inbox"
-  | "menu"
-  | "message"
-  | "people"
-  | "play"
-  | "report"
-  | "shield"
-  | "sparkle"
-  | "whatsapp"
-  | "x";
 
 
 const featureCards = [
