@@ -55,7 +55,7 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
+            ->component('dashboard')
             ->has('pendingInvitations', 1)
             ->where('pendingInvitations.0.code', $invitation->code)
             ->where('pendingInvitations.0.inviterName', 'Taylor Otwell')
@@ -85,7 +85,7 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
+            ->component('dashboard')
             ->has('pendingInvitations', 0),
         );
     }
@@ -110,7 +110,7 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
+            ->component('dashboard')
             ->has('pendingInvitations', 0),
         );
 
@@ -139,7 +139,7 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
+            ->component('dashboard')
             ->has('pendingInvitations', 0),
         );
 

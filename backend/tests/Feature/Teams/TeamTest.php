@@ -76,7 +76,7 @@ class TeamTest extends TestCase
         $response
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('teams/Edit')
+                ->component('teams/edit')
                 ->where('members.0.role', TeamRole::Owner->value)
                 ->where('members.0.role_label', TeamRole::Owner->label()),
             );

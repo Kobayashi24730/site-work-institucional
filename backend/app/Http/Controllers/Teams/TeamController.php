@@ -26,7 +26,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        return Inertia::render('teams/Index', [
+        return Inertia::render('teams/index', [
             'teams' => $user->toUserTeams(includeCurrent: true),
         ]);
     }
@@ -50,7 +50,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        return Inertia::render('teams/Edit', [
+        return Inertia::render('teams/edit', [
             'team' => [
                 'id' => $team->id,
                 'name' => $team->name,

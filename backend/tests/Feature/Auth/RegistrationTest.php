@@ -37,7 +37,7 @@ class RegistrationTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('auth/Register')
+            ->component('auth/register')
             ->where('teamInvitation.code', $invitation->code)
             ->where('teamInvitation.teamName', 'Laravel Team'),
         );
