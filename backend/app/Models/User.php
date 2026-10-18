@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -46,6 +48,8 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
      *
      * @return array<string, string>
      */
+
+    //? protected base.
     protected function casts(): array
     {
         return [
@@ -53,5 +57,14 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    //? Retorna as organizations e as as organizações que o usuário é dono
+    public function organizations(): BelongsTo {
+        return $this->belongsTo(Organization::class)->withPivot('role')->withTimestamps();
+    }
+
+    public function owedOrganizations(): HasMany {
+        return $this->hasMany(Organization::class, 'owner_id');
     }
 }
