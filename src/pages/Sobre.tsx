@@ -1,93 +1,45 @@
-import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
-import { Users, Target, Award, Lightbulb } from "lucide-react";
-import Layout from "@/components/layout/Layout";
-import SectionHeading from "@/components/shared/SectionHeading";
+import {Icon} from "@/components/layout/paths";
+import { useState } from "react";
 
-const values = [
-  { icon: Lightbulb, title: "Inovação", description: "Buscamos constantemente novas formas de resolver problemas complexos." },
-  { icon: Users, title: "Colaboração", description: "Trabalhamos lado a lado com nossos clientes como verdadeiros parceiros." },
-  { icon: Target, title: "Excelência", description: "Cada linha de código é escrita pensando em qualidade e performance." },
-  { icon: Award, title: "Integridade", description: "Transparência e honestidade em todas as nossas relações." },
-];
+export function Sobre() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-export default function Sobre() {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
   return (
-    <Layout>
-      <Helmet>
-        <title>Sobre Nós — NexaTech</title>
-        <meta name="description" content="Conheça a NexaTech: mais de 8 anos transformando empresas com tecnologia de ponta." />
-      </Helmet>
-
-      <section className="section-padding">
-        <div className="section-container">
-          <SectionHeading
-            badge="Sobre nós"
-            title="Tecnologia com propósito"
-            description="Somos uma empresa de tecnologia fundada com a missão de democratizar o acesso a soluções digitais de alto nível."
-          />
-
-          <div className="grid md:grid-cols-2 gap-12 items-center mt-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Desde 2016, ajudamos empresas de todos os portes a se digitalizarem e escalarem seus negócios. Nossa equipe multidisciplinar combina expertise técnica com visão estratégica para entregar resultados mensuráveis.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Acreditamos que a tecnologia deve ser acessível, intuitiva e, acima de tudo, resolver problemas reais. Cada projeto que entregamos é uma prova desse compromisso.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              {[
-                { value: "50+", label: "Profissionais" },
-                { value: "150+", label: "Projetos entregues" },
-                { value: "8+", label: "Anos no mercado" },
-                { value: "98%", label: "Taxa de satisfação" },
-              ].map((stat) => (
-                <div key={stat.label} className="glass-card p-5 text-center">
-                  <p className="font-display text-2xl font-bold text-gradient-primary">{stat.value}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-secondary/30">
-        <div className="section-container">
-          <SectionHeading badge="Valores" title="O que nos move" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-6 text-center"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <v.icon size={22} className="text-primary" aria-hidden="true" />
-                </div>
-                <h3 className="font-display font-semibold mb-2">{v.title}</h3>
-                <p className="text-sm text-muted-foreground">{v.description}</p>
-              </motion.div>
+    <section className="steps-section" id="como-funciona">
+      <div className="section-container steps-layout">
+        <div className="steps-copy">
+          <div className="section-kicker">COMECE EM MINUTOS</div>
+          <h2>Simples desde o primeiro “olá”.</h2>
+          <p>Sem projetos demorados ou configurações complexas. Conecte seu WhatsApp e comece a atender melhor hoje mesmo.</p>
+          <div className="step-list">
+            {[
+              ["01", "Conecte seu WhatsApp", "Use o número que sua empresa já conhece."],
+              ["02", "Convide sua equipe", "Defina times, permissões e horários."],
+              ["03", "Atenda e acompanhe", "Tenha clareza de cada conversa e resultado."],
+            ].map(([number, title, text]) => (
+              <div className="step" key={number}><span>{number}</span><div><b>{title}</b><p>{text}</p></div></div>
             ))}
           </div>
+          <button className="text-link" onClick={() => scrollTo("precos")}>Criar minha conta <Icon name="arrow" size={17} /></button>
         </div>
-      </section>
-    </Layout>
+        <div className="steps-visual">
+          <div className="phone-glow" />
+          <div className="phone-card">
+            <div className="phone-head"><span><Icon name="whatsapp" size={18} /></span><div><b>WhatsApp conectado</b><small>Pronto para receber mensagens</small></div><i /></div>
+            <div className="setup-progress"><div><span>Configuração da conta</span><b>100%</b></div><i><span /></i></div>
+            <div className="setup-check"><span><Icon name="check" size={16} /></span><div><b>Número conectado</b><small>+55 11 98765-4321</small></div></div>
+            <div className="setup-check"><span><Icon name="check" size={16} /></span><div><b>Equipe convidada</b><small>4 atendentes ativos</small></div></div>
+            <div className="setup-check"><span><Icon name="check" size={16} /></span><div><b>Horário configurado</b><small>Seg a sex, 08h às 18h</small></div></div>
+            <button>Tudo pronto para começar <Icon name="arrow" size={16} /></button>
+          </div>
+          <div className="mini-float"><span><Icon name="message" size={17} /></span><div><b>Nova conversa</b><small>Mariana Rocha</small></div></div>
+        </div>
+      </div>
+    </section>
   );
 }

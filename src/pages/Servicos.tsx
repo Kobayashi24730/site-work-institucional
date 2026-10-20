@@ -1,99 +1,69 @@
-import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
-import { Code2, Cloud, Shield, Zap, BarChart3, Headphones } from "lucide-react";
-import Layout from "@/components/layout/Layout";
-import SectionHeading from "@/components/shared/SectionHeading";
-import CTA from "@/components/sections/CTA";
+import React from "react";
+import {Icon, IconName} from "@/components/layout/paths";
 
-const services = [
+const featureCards = [
   {
-    icon: Code2,
-    title: "Desenvolvimento de Software",
-    description: "Aplicações web e mobile customizadas com React, React Native, Node.js e arquiteturas modernas como microserviços.",
-    features: ["Apps web responsivos", "Aplicativos mobile", "APIs RESTful e GraphQL", "Integração de sistemas"],
+    icon: "inbox" as IconName,
+    title: "Todos os atendimentos, um só lugar",
+    text: "Reúna conversas de múltiplos números e distribua automaticamente entre sua equipe.",
+    className: "feature-main",
   },
   {
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    description: "Migração, otimização e gestão de infraestrutura em nuvem com as melhores práticas de DevOps.",
-    features: ["AWS, Azure, GCP", "CI/CD pipelines", "Containerização", "Monitoramento 24/7"],
+    icon: "automation" as IconName,
+    title: "Automação inteligente",
+    text: "Crie fluxos, respostas automáticas e triagens sem complicação.",
+    className: "feature-automation",
   },
   {
-    icon: Shield,
-    title: "Segurança Cibernética",
-    description: "Proteja seus ativos digitais com auditorias de segurança, pentest e implementação de políticas de proteção.",
-    features: ["Auditoria de segurança", "Testes de penetração", "Compliance LGPD", "Gestão de identidade"],
+    icon: "people" as IconName,
+    title: "Contexto completo do cliente",
+    text: "Histórico, etiquetas e informações sempre ao alcance do atendente.",
+    className: "feature-customer",
   },
   {
-    icon: BarChart3,
-    title: "Data & Analytics",
-    description: "Transforme dados em insights acionáveis com dashboards, BI e modelos de machine learning.",
-    features: ["Business Intelligence", "Data warehousing", "Machine Learning", "Dashboards em tempo real"],
-  },
-  {
-    icon: Zap,
-    title: "Consultoria Tecnológica",
-    description: "Orientação estratégica para decisões tecnológicas, arquitetura de sistemas e roadmap de produto.",
-    features: ["Arquitetura de soluções", "Roadmap de produto", "Code review", "Mentoria técnica"],
-  },
-  {
-    icon: Headphones,
-    title: "Suporte & Manutenção",
-    description: "Serviços contínuos de suporte, manutenção evolutiva e monitoramento para suas aplicações.",
-    features: ["SLA garantido", "Manutenção preventiva", "Atualizações contínuas", "Suporte dedicado"],
+    icon: "report" as IconName,
+    title: "Decisões com dados reais",
+    text: "Acompanhe tempo de resposta, satisfação e desempenho da operação.",
+    className: "feature-report",
   },
 ];
 
-export default function Servicos() {
+
+export function Servicos() {
   return (
-    <Layout>
-      <Helmet>
-        <title>Serviços — NexaTech</title>
-        <meta name="description" content="Conheça nossos serviços: desenvolvimento de software, cloud, segurança, data analytics e consultoria tecnológica." />
-      </Helmet>
-
-      <section className="section-padding">
-        <div className="section-container">
-          <SectionHeading
-            badge="Serviços"
-            title="Soluções completas para seu negócio"
-            description="Oferecemos um portfólio abrangente de serviços tecnológicos para atender todas as necessidades da sua empresa."
-          />
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, i) => (
-              <motion.article
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card hover-lift p-8"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <service.icon size={22} className="text-primary" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-semibold text-lg mb-2">{service.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{service.description}</p>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {service.features.map((f) => (
-                        <li key={f} className="text-xs text-muted-foreground flex items-center gap-1.5">
-                          <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+    <section className="features-section" id="recursos">
+      <div className="section-container">
+        <div className="section-heading">
+          <div className="section-kicker">FEITO PARA SIMPLIFICAR</div>
+          <h2>Menos caos. Mais conversas que importam.</h2>
+          <p>Tudo o que sua equipe precisa para atender com agilidade, manter o contexto e entregar uma experiência memorável.</p>
         </div>
-      </section>
-
-      <CTA />
-    </Layout>
+        <div className="feature-grid">
+          {featureCards.map((feature) => (
+            <article className={`feature-card ${feature.className}`} key={feature.title}>
+              <div className="feature-icon"><Icon name={feature.icon} /></div>
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+              {feature.className === "feature-main" && (
+                <div className="feature-visual inbox-visual">
+                  <div className="inbox-person active"><span className="mini-avatar rose">MR</span><div><b>Mariana Rocha</b><small>Pedido #48291</small></div><i>2</i></div>
+                  <div className="inbox-person"><span className="mini-avatar blue">LC</span><div><b>Lucas Carvalho</b><small>Dúvida sobre o plano</small></div></div>
+                  <div className="inbox-person"><span className="mini-avatar violet">AP</span><div><b>Ana Paula</b><small>Quero saber mais</small></div></div>
+                </div>
+              )}
+              {feature.className === "feature-automation" && (
+                <div className="automation-visual"><span>Nova mensagem recebida</span><i /><span><Icon name="automation" size={14} /> Identificar assunto</span><i /><span><Icon name="people" size={14} /> Direcionar equipe</span></div>
+              )}
+              {feature.className === "feature-customer" && (
+                <div className="customer-visual"><span className="detail-avatar">MR</span><div><b>Mariana Rocha</b><small>Cliente desde 2023</small></div><em>Cliente ativo</em></div>
+              )}
+              {feature.className === "feature-report" && (
+                <div className="chart-visual"><div><span style={{ height: "42%" }} /><span style={{ height: "62%" }} /><span style={{ height: "48%" }} /><span style={{ height: "78%" }} /><span style={{ height: "88%" }} /><span style={{ height: "70%" }} /></div><small>+24% de produtividade</small></div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
