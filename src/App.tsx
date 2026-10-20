@@ -7,10 +7,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 
-const Sobre = lazy(() => import("./pages/Sobre"));
-const Servicos = lazy(() => import("./pages/Servicos"));
-const Contato = lazy(() => import("./pages/Contato"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const Sobre = lazy(() => import("@/components/sections/Sobre"));
+const Servicos = lazy(() => import("@/components/sections/Servicos"));
+const Contato = lazy(() => import("@/components/sections/Contato"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
 

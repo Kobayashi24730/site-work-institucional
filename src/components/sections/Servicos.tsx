@@ -29,7 +29,7 @@ const featureCards = [
 ];
 
 
-export function Servicos() {
+export default function Servicos() {
   return (
     <section className="features-section" id="recursos">
       <div className="section-container">

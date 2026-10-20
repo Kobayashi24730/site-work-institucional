@@ -1,7 +1,7 @@
 import {Icon} from "@/components/layout/paths";
 import { useState } from "react";
 
-export function Sobre() {
+export default function Sobre() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const scrollTo = (id: string) => {
