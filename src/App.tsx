@@ -9,7 +9,6 @@ import Index from "./pages/Index";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
-const Contato = lazy(() => import("@/components/sections/Contato"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -32,7 +31,6 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/servicos" element={<Servicos />} />
-              <Route path="/contato" element={<Contato />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

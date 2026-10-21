@@ -19,7 +19,14 @@ export function Faq() {
             <div className="faq-list">
               {faqs.map(([question, answer], index) => (
                 <article className={openFaq === index ? "open" : ""} key={question}>
-                  <button onClick={() => setOpenFaq(openFaq === index ? -1 : index)}><span>{question}</span><Icon name="chevron" /></button>
+                  <button 
+                    aria-expanded={openFaq === index}
+                    aria-controls={`faq-answer-${index}`}
+                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                    className="w-full flex justify-between items-center text-left"
+                  >
+                    <span>{question}</span><Icon name="chevron" />
+                  </button>
                   <div><p>{answer}</p></div>
                 </article>
               ))}

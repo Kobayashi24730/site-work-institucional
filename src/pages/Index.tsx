@@ -1,6 +1,4 @@
-import { useState, type ReactNode } from "react";
 import {Navbar} from "@/components/layout/Navbar";
-import {type IconName, Icon} from "@/components/layout/paths";
 import {Footer} from "@/components/layout/Footer";
 import {Hero} from "@/components/sections/Hero";
 import Servicos from "@/components/sections/Servicos";
