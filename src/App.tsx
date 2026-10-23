@@ -6,6 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
+import {Whatsapp} from "@/pages/Whatsapp";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
@@ -19,6 +20,7 @@ const Loading = () => (
   </div>
 );
 
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -31,6 +33,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/servicos" element={<Servicos />} />
+              <Route path="/whatsapp" element={<Whatsapp />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

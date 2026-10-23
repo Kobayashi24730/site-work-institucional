@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import {Logo} from "./Logo";
 import { Icon } from "./paths";
 import { ChevronDown, ChevronUp } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [soluctionsOpen, setSoluctionsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,7 @@ export function Navbar() {
                       type="button"
                       key={item.id}
                       className="dropdown-item"
-                      onClick={() => scrollTo(item.id)}
+                      onClick={() => navigate(`/${item.id}`)}
                     >
                       <span>{item.title}</span>
                       <span>{item.description}</span>
