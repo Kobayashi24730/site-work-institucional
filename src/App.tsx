@@ -11,6 +11,7 @@ import {Whatsapp} from "@/pages/Whatsapp";
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
+const Crm = lazy(() => import("@/pages/Crm"));
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/servicos" element={<Servicos />} />
               <Route path="/whatsapp" element={<Whatsapp />} />
+              <Route path="/crm" element={<Crm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
