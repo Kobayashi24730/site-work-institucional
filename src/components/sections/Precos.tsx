@@ -1,11 +1,12 @@
 import { useState } from "react";
 import {Icon} from "@/components/layout/paths";
+import { AnimatedSections } from '../AnimatedSections';
 export function Precos() {
     const [annual, setAnnual] = useState(true);
 
     return (
         <section className="pricing-section" id="precos">
-          <div className="section-container">
+          <AnimatedSections className="section-container">
             <div className="section-heading">
               <div className="section-kicker">PLANOS TRANSPARENTES</div>
               <h2>Comece pequeno. Cresça sem limites.</h2>
@@ -57,7 +58,7 @@ export function Precos() {
               </article>
             </div>
             <div className="security-note"><Icon name="shield" size={18} /> Seus dados protegidos com segurança de nível empresarial.</div>
-          </div>
+          </AnimatedSections>
         </section>
     );
 }

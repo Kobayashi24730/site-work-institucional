@@ -1,5 +1,6 @@
 import {Icon} from "@/components/layout/paths";
 import { useState } from "react";
+import {AnimatedSections} from "@/components/AnimatedSections";
 
 export default function Sobre() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function Sobre() {
 
   return (
     <section className="steps-section" id="como-funciona">
-      <div className="section-container steps-layout">
+      <AnimatedSections className="section-container steps-layout">
         <div className="steps-copy">
           <div className="section-kicker">COMECE EM MINUTOS</div>
           <h2>Simples desde o primeiro “olá”.</h2>
@@ -39,7 +40,7 @@ export default function Sobre() {
           </div>
           <div className="mini-float"><span><Icon name="message" size={17} /></span><div><b>Nova conversa</b><small>Mariana Rocha</small></div></div>
         </div>
-      </div>
+      </AnimatedSections>
     </section>
   );
 }

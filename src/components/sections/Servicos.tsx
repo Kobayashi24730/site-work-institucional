@@ -1,5 +1,6 @@
 import React from "react";
 import {Icon, IconName} from "@/components/layout/paths";
+import {AnimatedSections} from "@/components/AnimatedSections";
 
 const featureCards = [
   {
@@ -32,7 +33,7 @@ const featureCards = [
 export default function Servicos() {
   return (
     <section className="features-section" id="recursos">
-      <div className="section-container">
+      <AnimatedSections className="section-container">
         <div className="section-heading">
           <div className="section-kicker">FEITO PARA SIMPLIFICAR</div>
           <h2>Menos caos. Mais conversas que importam.</h2>
@@ -63,7 +64,7 @@ export default function Servicos() {
             </article>
           ))}
         </div>
-      </div>
+      </AnimatedSections>
     </section>
   );
 }

@@ -1,7 +1,9 @@
+import { AnimatedSections } from '../AnimatedSections';
+
 export function Clientes() {
     return (
         <section className="results-section" id="clientes">
-          <div className="section-container">
+          <AnimatedSections className="section-container">
             <div className="results-card">
               <div className="quote-mark">“</div>
               <blockquote>A Nimbo organizou nosso atendimento sem tirar o lado humano. Hoje respondemos mais rápido, vendemos mais e sabemos exatamente onde podemos melhorar.</blockquote>
@@ -12,7 +14,7 @@ export function Clientes() {
                 <div><b>98%</b><span>de satisfação dos clientes</span></div>
               </div>
             </div>
-          </div>
+          </AnimatedSections>
         </section>
     );
 }
