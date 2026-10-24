@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {ProductPreview} from "@/components/sections/ProductPreview";
 import { Icon } from "@/components/layout/paths";
+import { AnimatedSections } from '@/components/AnimatedSections';
 
 export function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
