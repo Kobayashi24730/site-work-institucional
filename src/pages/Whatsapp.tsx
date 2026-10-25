@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { BatteryWarning, CheckIcon, XIcon } from "lucide-react";
+import { AnimatedSections } from "@/components/AnimatedSections";
 
 const textSoluctionsCasosUso = [
     {
@@ -84,9 +85,8 @@ const comparacao = [
 export function Whatsapp() {
     return (
         <section className="py-16 md:py-24 bg-slate-50/50">
-            <div className="container mx-auto px-4 max-w-6xl space-y-24">
-                
-                {/* 1. Topo / Hero Section */}
+            <AnimatedSections className="container mx-auto px-4 max-w-6xl space-y-24">
+                {/* Hero */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6 text-left">
                         <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-100/60 rounded-full">
@@ -117,7 +117,7 @@ export function Whatsapp() {
                     </div>
                 </div>
 
-                {/* 2. Casos Práticos (Grid de Cards) */}
+                {/* Casos Práticos.*/}
                 <div className="pt-12 border-t border-slate-200/60">
                     <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
@@ -150,7 +150,7 @@ export function Whatsapp() {
                     </ul>
                 </div>
 
-                {/* 3. Soluções por Segmento */}
+                {/* Soluções por Segmento */}
                 <div className="pt-12 border-t border-slate-200/60">
                     <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
@@ -171,7 +171,7 @@ export function Whatsapp() {
                     </div>
                 </div>
 
-                {/* 4. Tabela Comparativa: WhatsApp Padrão vs Nimbo */}
+                {/* Tabela Comparativa: WhatsApp Padrão vs Nimbo */}
                 <div className="pt-12 border-t border-slate-200/60">
                     <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
@@ -213,7 +213,7 @@ export function Whatsapp() {
                     </div>
                 </div>
 
-                {/* 5. Diretrizes, Segurança e LGPD */}
+                {/* Diretrizes, Segurança e LGPD */}
                 <div className="pt-12 border-t border-slate-200/60 grid grid-cols-1 md:grid-cols-3 gap-8">
                     {Diretrizes.map((dir, idx) => (
                         <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3">
@@ -223,7 +223,7 @@ export function Whatsapp() {
                     ))}
                 </div>
 
-                {/* 6. Call to Action Final */}
+                {/* Call */}
                 <div className="bg-blue-600 rounded-3xl p-8 md:p-12 text-center text-white space-y-6 shadow-xl">
                     <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">
                         Pronto para profissionalizar o WhatsApp da sua empresa?
@@ -239,8 +239,7 @@ export function Whatsapp() {
                         </Button>
                     </div>
                 </div>
-
-            </div>
+            </AnimatedSections>
         </section>
     );
 }
