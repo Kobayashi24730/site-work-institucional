@@ -13,6 +13,7 @@ const Servicos = lazy(() => import("@/components/sections/Servicos"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const Crm = lazy(() => import("@/pages/Crm"));
 const Automacao = lazy(() => import("@/pages/Automacao"));
+const Integracoes = lazy(() => import("@/pages/Integracoes"));
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/whatsapp" element={<Whatsapp />} />
               <Route path="/crm" element={<Crm />} />
               <Route path="/automacao" element={<Automacao />} />
+              <Route path="/integracoes" element={<Integracoes />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
