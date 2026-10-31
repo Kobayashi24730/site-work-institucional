@@ -6,7 +6,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
-import {Whatsapp} from "@/pages/Whatsapp";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
@@ -14,6 +13,8 @@ const NotFound = lazy(() => import("@/pages/NotFound"));
 const Crm = lazy(() => import("@/pages/Crm"));
 const Automacao = lazy(() => import("@/pages/Automacao"));
 const Integracoes = lazy(() => import("@/pages/Integracoes"));
+const Whatsapp = lazy(() => import("@/pages/Whatsapp"));
+const Auth = lazy(() => import("@/pages/Auth"));
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/crm" element={<Crm />} />
               <Route path="/automacao" element={<Automacao />} />
               <Route path="/integracoes" element={<Integracoes />} />
+              <Route path ="/auth" element={<Auth />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

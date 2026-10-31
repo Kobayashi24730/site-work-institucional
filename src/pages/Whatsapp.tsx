@@ -82,7 +82,7 @@ const comparacao = [
     }
 ];
 
-export function Whatsapp() {
+export default function Whatsapp() {
     return (
         <section className="py-16 md:py-24 bg-slate-50/50">
             <AnimatedSections className="container mx-auto px-4 max-w-6xl space-y-24">

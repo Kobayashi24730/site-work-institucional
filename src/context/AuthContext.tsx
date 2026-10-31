@@ -1,10 +1,31 @@
+import { ReactNode } from "react";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { api } from "@/api/api";
+import { Services } from "@/services/services";
 
-const AuthContext = createContext();
+interface Plan {
+    id: string;
+    name: string;
+    status: 'active' | 'cancelled' | 'trial';
+}
 
-export function AuthProvider({children}) {
-    const [user, setUser] = useState(null);
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    plan?: Plan;
+}
+
+interface AuthContextData {
+    user: User | null;
+    loading: boolean;
+    singIn: (token: string, userData: User) => void;
+    singOut: () => void;
+}
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+
+export function AuthProvider({children}: {children: ReactNode}) {
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -26,4 +47,50 @@ export function AuthProvider({children}) {
 
         setLoading(false);
     }, []);
+
+    const singIn = async (email: string, senha: string) => {
+        try {
+            const response = await Services.getUser({email, senha});
+            const {token, user: apiUser} = response.data;    
+            const loggleUser = {id: apiUser.id, name: apiUser.name, email: apiUser.email};
+            setUser(loggleUser);
+
+            localStorage.setItem('@App:token', token);
+            localStorage.setItem('@App:user', JSON.stringify(loggleUser));
+    
+            api.defaults.headers.authorization = `Bearer ${token}`;
+            return {success: true};
+        } catch (err) {
+            console.error("Erro no login:", err);
+            return { 
+                success: false, 
+                message: err.response?.data?.message || "Erro ao realizar o login." 
+            };
+        }
+    };
+
+    const singOut = () => {
+        localStorage.removeItem('@App:token');
+        localStorage.removeItem('@App:user');
+
+        api.defaults.headers.authorization = undefined;
+        setUser(null);
+
+        return {success: true};
+    };
+
+    return (
+        <AuthContext.Provider value={{user, loading, singIn, singOut}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+
+export function useAuth() {
+    const context = useContext(AuthContext);    
+    if (!context) {
+        throw new Error("useAuth deve ser usado dentro de um AuthProvider.");
+    }
+    return context;
 }

@@ -7,8 +7,10 @@ api.interceptors.request.use(config => {
     }
     return config;
 });
+
+
 export const Services = {
-    getUser: async () => {
+    getUser: async (data) => {
         const response = await api.get('/users');
         return response.data;
     },

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Services } from "@/services/services";
 
 export function useServices() {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -27,6 +27,7 @@ export function useServices() {
             } else {
                 toast.error("Erro ao criar o usuario.");
             }
+            return {success: true, data: response};
         } catch (err) {
             console.error("Detalhes do erro:", err.response?.data || err);
             const errorMessage =
@@ -61,15 +62,12 @@ export function useServices() {
         fetchServicesBy();
     }, [fetchServicesBy]);
 
-    useEffect(() => {
-
-    }, []);
-
-    return (
-        {
-            services,
-            error,
-            loading,
-        }
-    );
+    return {
+        createUser,
+        deleteUser,
+        user,
+        error,
+        loading,
+        refetch: fetchServicesBy
+    };
 }
