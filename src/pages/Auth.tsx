@@ -29,7 +29,7 @@ const registerSchema = z.object({
 });
 
 export default function Auth() {
-    const { singIn, singOut } = useAuth();
+    const { signIn } = useAuth();
     const { createUser } = useServices();
     const [formType, setFormType] = useState<"login" | "register">("login");
     const currentFormSchema = formType === "login" ? loginSchema : registerSchema;
@@ -53,7 +53,7 @@ export default function Auth() {
 
     const onSubmit = async (data) => {
         if (formType === "login") {
-            const result = await singIn(data.email, data.senha);
+            const result = await signIn(data.email, data.senha);
             if (result) {
                 toast.success("Logado com sucesso");
                 navigate("/");
@@ -74,19 +74,86 @@ export default function Auth() {
 
     return (
         <section className="py-20 md:py-28 bg-slate-50/50 overflow-hidden">
-            <AnimatedSections>
-                <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <AnimatedSections className="container mx-auto px-4 max-w-md space-y-8">
+                <div className="text-center space-y-4">
                     <div className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-100/60 rounded-full">
-                        <span>login | register</span>
+                        <span>{formType === "login" ? "login" : "register"}</span>
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Login</h2>
-                    <span>
-                        Façã seu login para acessar a plataforma e seus servições
-                    </span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        {formType === "login" ? "Bem vindo de volta ao Nimbo." : "Crie sua conta no Nimbo."}
+                    </h2>
+                    <p className="text-sm text-slate-600">
+                        {formType === "login" 
+                            ? "Faça seu login para acessar a plataforma e seus serviços." 
+                            : "Preencha os campos abaixo para começar a usar o Nimbo."}
+                    </p>
                 </div>
 
-                <div>
+                <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            {formType === "login" && (
+                                <FormField
+                                    control={form.control}
+                                    name="nome"
+                                    render={({field}) => (
+                                        <FormItem>
+                                            <FormLabel>Nome</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Informe seu nome" {...field}/>
+                                            </FormControl>
+                                            <FormMessage/>
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
 
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Informe seu email" {...field}/>
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Senha</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Informe sua senha" />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <Button
+                                type="submit"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                            >
+                                {formType === "login" ? "logar" : "registra-se"}
+                            </Button>
+                        </form>
+                    </Form>
+
+                    <div className="mt-6 text-center">
+                        <Button
+                            type="button"
+                            onClick={toggleFormType}
+                            className="text-sm text-white hover:underline font-medium">
+                            {formType === "login" ? "Não tem uma conta? Cadastre-se"
+                                : "Já tem uma conta? Faça login"}
+                        </Button>
+                    </div>
                 </div>
             </AnimatedSections>
         </section>

@@ -10,8 +10,12 @@ api.interceptors.request.use(config => {
 
 
 export const Services = {
-    getUser: async (data) => {
+    getUser: async () => {
         const response = await api.get('/users');
+        return response.data;
+    },
+    login: async (credentials: { email: string; senha: string}) => {
+        const response = await api.post('/users', credentials);
         return response.data;
     },
     createUser: async (data) => {

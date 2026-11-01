@@ -19,8 +19,8 @@ interface User {
 interface AuthContextData {
     user: User | null;
     loading: boolean;
-    singIn: (token: string, userData: User) => void;
-    singOut: () => void;
+    signIn: (email: string, senha: string) => Promise<{ success: boolean; message?: string }>;
+    signOut: () => void;
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -48,9 +48,9 @@ export function AuthProvider({children}: {children: ReactNode}) {
         setLoading(false);
     }, []);
 
-    const singIn = async (email: string, senha: string) => {
+    const signIn = async (email: string, senha: string) => {
         try {
-            const response = await Services.getUser({email, senha});
+            const response = await Services.login({email, senha});
             const {token, user: apiUser} = response.data;    
             const loggleUser = {id: apiUser.id, name: apiUser.name, email: apiUser.email};
             setUser(loggleUser);
@@ -69,18 +69,16 @@ export function AuthProvider({children}: {children: ReactNode}) {
         }
     };
 
-    const singOut = () => {
+    const signOut = () => {
         localStorage.removeItem('@App:token');
         localStorage.removeItem('@App:user');
 
         api.defaults.headers.authorization = undefined;
         setUser(null);
-
-        return {success: true};
     };
 
     return (
-        <AuthContext.Provider value={{user, loading, singIn, singOut}}>
+        <AuthContext.Provider value={{user, loading, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )
