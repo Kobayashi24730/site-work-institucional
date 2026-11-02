@@ -37,6 +37,39 @@ class AuthController extends Controller{
         ]);
     }
 
+    public function user(Request $request) {
+        $user = $request->user();
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'plan' => $user->plan ?? null
+        ]);
+    }
+
+    public function logout(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout realizado com sucesso'
+        ], 200);
+    }
+
+    public function forgotPassword(Request $request) {
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        //? Envia email para redefinir senha.
+
+        return response()->json([
+            'message' => 'Email enviado com sucesso'
+        ], 200);
+    }
+
     public function me(Request $request) {
         return response()->json($request->user());
     }
