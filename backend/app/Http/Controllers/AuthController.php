@@ -1,10 +1,9 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class AuthController extends Controller{
     public function login(Request $request) {
@@ -39,6 +38,6 @@ class AuthController extends Controller{
     }
 
     public function me(Request $request) {
-        return reponse()->json($request->user());
+        return response()->json($request->user());
     }
 }

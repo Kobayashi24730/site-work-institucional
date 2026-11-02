@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,13 +11,13 @@ class UserController extends Controller {
         $validated = $request->validate([
             'name' =>  'required|string|min:3',
             'email' => 'required|email|unique:users,email',
-            'senha' => 'required|string|min:6',
+            'senha' => 'required|min:6',
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'senha' => Hash::make($validated['senha']),
+            'password' => Hash::make($validated['senha']),
         ]);
 
         return response()->json([
