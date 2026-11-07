@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import { AuthProvider } from "./context/AuthContext";
+import { Profile } from "@/pages/Profile";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/automacao" element={<Automacao />} />
                 <Route path="/integracoes" element={<Integracoes />} />
                 <Route path ="/auth" element={<Auth />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

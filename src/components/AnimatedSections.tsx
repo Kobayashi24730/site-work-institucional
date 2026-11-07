@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export function AnimatedSections({ children, className = "", delay = 0}){
+export function AnimatedSections({ children, className = "", delay = 0}: { children?: React.ReactNode, className?: string, delay?: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -30,7 +30,8 @@ const registerSchema = z.object({
 });
 
 export default function Auth() {
-    const { signIn, loading } = useAuth();
+    const { signIn } = useAuth();
+    const [loading, setLoading] = useState(false);
     const { createUser } = useServices();
     const [formType, setFormType] = useState<"login" | "register">("login");
     const currentFormSchema = formType === "login" ? loginSchema : registerSchema;
@@ -54,21 +55,27 @@ export default function Auth() {
 
     const onSubmit = async (data) => {
         if (formType === "login") {
+            setLoading(true);
             const result = await signIn(data.email, data.senha);
-            if (result) {
+            if (result && result.success) {
                 toast.success("Logado com sucesso");
+                setLoading(false);
                 navigate("/");
             } else {
-                toast.error("Email ou senha incorretos.");
+                setLoading(false);
+                toast.error(result?.message || "Email ou senha incorretos.");
             }
         } else if (formType === "register") {
+            setLoading(true);
             const result = await createUser(data);
-            if (result) {
+            if (result && result.success) {
                 toast.success("Usuario criado com sucesso.");
                 setFormType("login");
+                setLoading(false);
                 navigate("/auth");
             } else {
-                toast.error("Erro ao criar o usuario.");
+                setLoading(false);
+                toast.error("Erro ao criar usuario.");
             }
         }
     }

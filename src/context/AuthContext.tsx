@@ -30,11 +30,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
     useEffect(() => {
         const token = localStorage.getItem('@App:token');
-        const user = localStorage.getItem('@App:user');
+        const storeUser = localStorage.getItem('@App:user');
 
-        if (token && user && user != "undefined" && user != "null") {
+        if (token && storeUser && storeUser != "undefined" && storeUser != "null") {
             try {
-                setUser(JSON.parse(user));
+                setUser(JSON.parse(storeUser));
                 api.defaults.headers.authorization = `Bearer ${token}`;
             } catch (err) {
                 localStorage.removeItem('@App:token');
@@ -52,9 +52,10 @@ export function AuthProvider({children}: {children: ReactNode}) {
         setLoading(true);
         try {
             const response = await Services.login({email, senha});
-            const {token, user: apiUser} = response.data;    
+            const {token, user: apiUser} = response;    
             const loggleUser = {id: apiUser.id, name: apiUser.name, email: apiUser.email};
             setUser(loggleUser);
+            console.log(loggleUser);
 
             localStorage.setItem('@App:token', token);
             localStorage.setItem('@App:user', JSON.stringify(loggleUser));
@@ -73,10 +74,12 @@ export function AuthProvider({children}: {children: ReactNode}) {
     };
 
     const signOut = () => {
+        setLoading(true);
         localStorage.removeItem('@App:token');
         localStorage.removeItem('@App:user');
 
-        api.defaults.headers.authorization = undefined;
+        delete api.defaults.headers.authorization;
+        setLoading(false);
         setUser(null);
     };
 

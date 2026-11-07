@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import {Logo} from "./Logo";
 import { Icon } from "./paths";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../context/AuthContext';
+
 
 export function Navbar() {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [soluctionsOpen, setSoluctionsOpen] = useState(false);
@@ -93,10 +96,29 @@ export function Navbar() {
             <button onClick={() => scrollTo("clientes")}>Clientes</button>
             <button onClick={() => scrollTo("sobre")}>Sobre nós</button>
           </nav>
+
           <div className="header-actions">
-            <button onClick={() => navigate("/auth")} className="login-button">Entrar</button>
-            <button className="trial-button" onClick={() => scrollTo("precos")}>Começar grátis <Icon name="arrow" size={16} /></button>
+            {user ? (
+              <div className="flex items-center gap-4">
+                <div 
+                  onClick={() => navigate("/profile")}
+                  className="user flex items-center gap-2 hover:cursor-pointer text-slate-700 font-medium hover:text-blue-600 transition-colors"
+                  title="Ir para o painel principal."
+                >
+                  <User className="w-5 h-5"/><span>{user.name.split(" ")[0]}</span>
+                </div>
+                <div>
+                  <button className="trial-button" onClick={() => scrollTo("precos")}>Começar grátis <Icon name="arrow" size={16} /></button>  
+                </div>
+              </div>
+            ) : (
+              <>
+                <button onClick={() => navigate("/auth")} className="login-button">Entrar</button>
+                <button className="trial-button" onClick={() => scrollTo("precos")}>Começar grátis <Icon name="arrow" size={16} /></button>
+              </>
+            )}
           </div>
+
           <button className="menu-button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(!menuOpen)}>
             <Icon name={menuOpen ? "x" : "menu"} />
           </button>
