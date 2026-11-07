@@ -6,6 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
+import { AuthProvider } from "./context/AuthContext";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
@@ -31,21 +32,23 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/sobre" element={<Sobre />} />
-              <Route path="/servicos" element={<Servicos />} />
-              <Route path="/whatsapp" element={<Whatsapp />} />
-              <Route path="/crm" element={<Crm />} />
-              <Route path="/automacao" element={<Automacao />} />
-              <Route path="/integracoes" element={<Integracoes />} />
-              <Route path ="/auth" element={<Auth />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
+        <AuthProvider>  
+          <BrowserRouter>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/sobre" element={<Sobre />} />
+                <Route path="/servicos" element={<Servicos />} />
+                <Route path="/whatsapp" element={<Whatsapp />} />
+                <Route path="/crm" element={<Crm />} />
+                <Route path="/automacao" element={<Automacao />} />
+                <Route path="/integracoes" element={<Integracoes />} />
+                <Route path ="/auth" element={<Auth />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>

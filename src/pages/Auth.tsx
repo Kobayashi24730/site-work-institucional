@@ -29,7 +29,7 @@ const registerSchema = z.object({
 });
 
 export default function Auth() {
-    const { signIn } = useAuth();
+    const { signIn, loading } = useAuth();
     const { createUser } = useServices();
     const [formType, setFormType] = useState<"login" | "register">("login");
     const currentFormSchema = formType === "login" ? loginSchema : registerSchema;
@@ -37,7 +37,7 @@ export default function Auth() {
     const form = useForm({
         resolver: zodResolver(currentFormSchema),
         defaultValues: {
-            nome: "",
+            name: "",
             email: "",
             senha: "",
         },
@@ -47,7 +47,7 @@ export default function Auth() {
     const toggleFormType = () => {
         const nextFormType = formType === "login" ? "register" : "login";
         setFormType(nextFormType);
-        form.reset({ nome: "", email: "", senha: "" });
+        form.reset({ name: "", email: "", senha: "" });
     };
 
 
@@ -92,10 +92,10 @@ export default function Auth() {
                 <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            {formType === "login" && (
+                            {formType === "register" && (
                                 <FormField
                                     control={form.control}
-                                    name="nome"
+                                    name="name"
                                     render={({field}) => (
                                         <FormItem>
                                             <FormLabel>Nome</FormLabel>
@@ -124,17 +124,26 @@ export default function Auth() {
 
                             <FormField
                                 control={form.control}
-                                name="email"
+                                name="senha"
                                 render={({field}) => (
                                     <FormItem>
                                         <FormLabel>Senha</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Informe sua senha" />
+                                            <Input placeholder="Informe sua senha" {...field} />
                                         </FormControl>
                                         <FormMessage/>
                                     </FormItem>
                                 )}
                             />
+
+                            {loading &&(
+                                <Button
+                                    type="submit"
+                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                                >               
+                                circulo girando carregando                     
+                                </Button>
+                            )}
 
                             <Button
                                 type="submit"
