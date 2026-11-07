@@ -49,6 +49,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
     }, []);
 
     const signIn = async (email: string, senha: string) => {
+        setLoading(true);
         try {
             const response = await Services.login({email, senha});
             const {token, user: apiUser} = response.data;    
@@ -66,6 +67,8 @@ export function AuthProvider({children}: {children: ReactNode}) {
                 success: false, 
                 message: err.response?.data?.message || "Erro ao realizar o login." 
             };
+        } finally {
+            setLoading(false);
         }
     };
 

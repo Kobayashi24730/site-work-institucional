@@ -16,6 +16,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useServices } from "@/hooks/useServices";
+import { Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
     email: z.string().email({ message: "Email inválido" }),
@@ -135,21 +136,13 @@ export default function Auth() {
                                     </FormItem>
                                 )}
                             />
-
-                            {loading &&(
-                                <Button
-                                    type="submit"
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                                >               
-                                circulo girando carregando                     
-                                </Button>
-                            )}
-
                             <Button
                                 type="submit"
+                                disabled={loading}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                             >
-                                {formType === "login" ? "logar" : "registra-se"}
+                                {loading ? <Loader2 className="w-4 h-4 animate-spin" />
+                                : (formType === "login" ? "logar" : "registra-se") }
                             </Button>
                         </form>
                     </Form>

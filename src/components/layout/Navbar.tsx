@@ -94,7 +94,7 @@ export function Navbar() {
             <button onClick={() => scrollTo("sobre")}>Sobre nós</button>
           </nav>
           <div className="header-actions">
-            <button className="login-button">Entrar</button>
+            <button onClick={() => navigate("/auth")} className="login-button">Entrar</button>
             <button className="trial-button" onClick={() => scrollTo("precos")}>Começar grátis <Icon name="arrow" size={16} /></button>
           </div>
           <button className="menu-button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(!menuOpen)}>
