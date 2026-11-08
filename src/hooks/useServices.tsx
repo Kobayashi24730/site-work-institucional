@@ -5,9 +5,13 @@ import { Services } from "@/services/services";
 export function useServices() {
     const [user, setUser] = useState();
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const fetchServicesBy = useCallback(async () => {
+        const token = localStorage.getItem('@App:token');
+        if (!token) return;
+
+        setLoading(true);
         try {
             const response = await Services.getUser();
             setUser(response);
@@ -34,8 +38,7 @@ export function useServices() {
                 err.response?.data?.message ||
                 err.message ||
                 "Erro ao criar um novo user.";
-
-            throw new Error(errorMessage);
+            return { success: false, message: errorMessage };
         }
     };
 
