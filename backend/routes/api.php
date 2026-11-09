@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -20,5 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update', [AuthController::class, 'update']); //? Atualiza os dados do usuário.
     Route::post('/logout', [AuthController::class, 'logout']); //? Desloga usuário.
     Route::delete('/users/{id}', [UserController::class, 'destroy']); //? Deleta usuario.
-    Route::post('/reset-password', [AuthController::class, 'resetPassword']); //? Redefine senha do usuário.
+    Route::post('/reset-password', [NewPasswordController::class, 'store']); //? Redefine senha do usuário.
 });

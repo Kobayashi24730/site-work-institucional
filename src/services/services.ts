@@ -23,7 +23,7 @@ export const Services = {
         return response.data;
     },
     updateUser: async (data) => {
-        const response = await api.put(`/reset-password/`, {
+        const response = await api.post(`/reset-password/`, {
             token: data.token,
             email: data.email,
             password: data.password,
