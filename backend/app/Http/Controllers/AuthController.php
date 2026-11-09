@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller{
     public function login(Request $request) {
@@ -63,10 +66,52 @@ class AuthController extends Controller{
             'email' => 'required|email|exists:users,email'
         ]);
 
-        //? Envia email para redefinir senha.
+        try {
+            $status = Password::sendResetLink($request->only('email'));
+
+            if ($status === Password::RESET_LINK_SENT) {
+                return response()->json([
+                    'message' => 'E-mail de redefinição de senha enviado com sucesso'
+                ], 200);
+            }
+
+            return response()->json([
+                'message' => 'Não foi possivel enviar o e-mail de redefinição de senha',
+                'laravel_status' => __($status)
+            ], 400);
+        } catch (\Exception $e) {
+            Log::error("Erro crítico ao enviar e-mail: " . $e->getMessage());
+            return response()->json([
+                'message' => 'Erro interno ao disparar o e-mail.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
+
+    public function update(Request $request) {
+        $user = $request->user();
+
+        $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'senha' => 'sometimes|string|min:6'
+        ]);
+
+        $data=[];
+
+        if ($request->filled('name')){
+            $data['name'] = $request->name;
+        }
+
+        if ($request->filled('senha')) {
+            $data['password'] = Hash::make($request->senha);
+        }
+
+        $user->update($data);
 
         return response()->json([
-            'message' => 'Email enviado com sucesso'
+            'message' => 'Perfil atualizado com sucesso',
+            'user' => $user
         ], 200);
     }
 

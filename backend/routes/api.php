@@ -17,6 +17,7 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword']); //? 
 //? Torna as rotas abaixo privadas so acesseveis com autenticação.
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']); //? Retornar as infos do usuário logado.
+    Route::put('/update', [AuthController::class, 'update']); //? Atualiza os dados do usuário.
     Route::post('/logout', [AuthController::class, 'logout']); //? Desloga usuário.
     Route::delete('/users/{id}', [UserController::class, 'destroy']); //? Deleta usuario.
 });
