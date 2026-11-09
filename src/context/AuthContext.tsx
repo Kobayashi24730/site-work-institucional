@@ -28,24 +28,42 @@ export function AuthProvider({children}: {children: ReactNode}) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const token = localStorage.getItem('@App:token');
-        const storeUser = localStorage.getItem('@App:user');
+    const fetchCurrentUser = async () => {
+        try {
+            const response = await Services.getUser();
+            const apiUser = response;
+            const userData = { id: apiUser.id, name: apiUser.name, email: apiUser.email, plan: apiUser.plan };
 
-        if (token && storeUser && storeUser != "undefined" && storeUser != "null") {
-            try {
-                setUser(JSON.parse(storeUser));
-                api.defaults.headers.authorization = `Bearer ${token}`;
-            } catch (err) {
-                localStorage.removeItem('@App:token');
-                localStorage.removeItem('@App:user');
-            } 
-        } else {
-            localStorage.removeItem('@App:token');
-            localStorage.removeItem('@App:user');
+            setUser(userData);
+            localStorage.setItem('@App:user', JSON.stringify(userData));
+        } catch (err) {
+            console.error("Erro ao buscar usuário:", err);
+            signOut();
+        }
+    };
+
+    useEffect(() => {
+        const loadStoreAuth = async () => {
+            const token = localStorage.getItem('@App:token');
+            const storeUser = localStorage.getItem('@App:user');
+    
+            if (token && storeUser && storeUser != "undefined" && storeUser != "null") {
+                try {
+                    setUser(JSON.parse(storeUser));
+                    api.defaults.headers.authorization = `Bearer ${token}`;
+                } catch (err) {
+                    localStorage.removeItem('@App:token');
+                    localStorage.removeItem('@App:user');
+                }
+                
+                await fetchCurrentUser();
+            } else {
+                signOut();
+            }
+            setLoading(false);
         }
 
-        setLoading(false);
+        loadStoreAuth();
     }, []);
 
     const signIn = async (email: string, senha: string) => {

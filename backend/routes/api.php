@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update', [AuthController::class, 'update']); //? Atualiza os dados do usuário.
     Route::post('/logout', [AuthController::class, 'logout']); //? Desloga usuário.
     Route::delete('/users/{id}', [UserController::class, 'destroy']); //? Deleta usuario.
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']); //? Redefine senha do usuário.
 });

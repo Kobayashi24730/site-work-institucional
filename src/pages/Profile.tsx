@@ -16,21 +16,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import { useServices } from "@/hooks/useServices";
+import { useEffect } from "react";
 
 const formSchema = z.object({
     name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
     email: z.string().email({ message: "Email inválido" }),
 });
+
 export function Profile() {
-    const { signOut } = useAuth();
-    const { user } = useServices();
+    const { user, signOut } = useAuth();
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: user?.name || "undefined",
-            email: user?.email || "undefined",
+            name: "",
+            email: "",
         },
     });
+
+    useEffect(() => {
+        if (user) {
+            form.reset({
+                name: user?.name || "",
+                email: user?.email || "",
+            });
+        }
+    }, [user, form]);
+
     const {isDirty} = form.formState;
 
     const onSubmit = async (data) => {
@@ -70,7 +81,7 @@ export function Profile() {
                                         type="button"
                                         variant="outline"
                                         size="sm"
-                                        className="gap-2 border-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-50"
+                                        className="gap-2 border-slate-200 text-slate-700 font-medium rounded-lg hover:bg-blue-500"
                                     >
                                         <Upload className="h-4 w-4" /> Alterar foto
                                     </Button>
@@ -105,7 +116,7 @@ export function Profile() {
                                             type="submit"
                                             size="sm"
                                             disabled={!isDirty}
-                                            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-4 disabled:opacity-50"
+                                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-4 disabled:opacity-50 ${isDirty ? "cursor-pointer" : "cursor-not-allowed"}`}
                                         >
                                             Salvar alterações
                                         </Button>
@@ -140,9 +151,8 @@ export function Profile() {
                                                 <FormControl>
                                                     <Input
                                                         placeholder="seu@email.com"
-                                                        disabled
                                                         {...field}
-                                                        className="rounded-lg border-slate-200 bg-slate-50 text-slate-500 cursor-not-allowed"
+                                                        className="rounded-lg border-slate-200 focus-visible:ring-blue-500"
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -170,9 +180,9 @@ export function Profile() {
                                 type="button"
                                 variant="outline"
                                 onClick={() => signOut()}
-                                className="gap-2 border-slate-200 text-slate-700 hover:bg-slate-100 rounded-lg font-medium"
+                                className="gap-2 border-slate-200 text-slate-700 hover:bg-blue-500 rounded-lg font-medium"
                             >
-                                <LogOut className="h-4 w-4" /> Deslogar da conta
+                                <LogOut className="h-4 w-4" /> Deslogar da conta    
                             </Button>
 
                             <Button

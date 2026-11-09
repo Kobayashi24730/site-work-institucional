@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import { AuthProvider } from "./context/AuthContext";
 import { Profile } from "@/pages/Profile";
+import { ResetPassword } from "@/pages/ResetPassword";
 
 const Sobre = lazy(() => import("@/components/sections/Sobre"));
 const Servicos = lazy(() => import("@/components/sections/Servicos"));
@@ -46,6 +47,7 @@ const App = () => (
                 <Route path="/integracoes" element={<Integracoes />} />
                 <Route path ="/auth" element={<Auth />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

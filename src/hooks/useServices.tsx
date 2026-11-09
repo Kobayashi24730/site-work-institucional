@@ -3,27 +3,10 @@ import { toast } from "sonner";
 import { Services } from "@/services/services";
 
 export function useServices() {
-    const [user, setUser] = useState();
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchServicesBy = useCallback(async () => {
-        const token = localStorage.getItem('@App:token');
-        if (!token) return;
-
-        setLoading(true);
-        try {
-            const response = await Services.getUser();
-            setUser(response);
-            setLoading(false);
-        } catch (err) {
-            setError("Erro ao buscar o user.");
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
     const createUser = async (user) => {
+        setLoading(true);
         try {
             const response = await Services.createUser(user);
             if (response) {
@@ -39,10 +22,13 @@ export function useServices() {
                 err.message ||
                 "Erro ao criar um novo user.";
             return { success: false, message: errorMessage };
+        } finally {
+            setLoading(false);
         }
     };
 
     const deleteUser = async (user) => {
+        setLoading(true);
         try {
             const response = await Services.deleteUser(user);
             if (response) {
@@ -56,21 +42,37 @@ export function useServices() {
                 err.response?.data?.message ||
                 err.message ||
                 "Erro ao deletar o user.";
-
-            throw new Error(errorMessage);
+            return { success: false, message: errorMessage };
+        } finally {
+            setLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchServicesBy();
-    }, [fetchServicesBy]);
+    const updatePassword = async (data) => {
+        setLoading(true);
+        try {
+            const response = await Services.updateUser(data);
+            if (response) {
+                toast.success("Senha atualizada com sucesso.");
+            } else {
+                toast.error("Erro ao atualizar a senha.");
+            }
+        } catch (err) {
+            console.error("Detalhes do erro:", err.response?.data || err);
+            const errorMessage =
+                err.response?.data?.message ||
+                err.message ||
+                "Erro ao update o user.";
+            return { success: false, message: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return {
         createUser,
         deleteUser,
-        user,
-        error,
+        updatePassword,
         loading,
-        refetch: fetchServicesBy
     };
 }

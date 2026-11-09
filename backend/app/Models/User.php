@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Concerns\HasTeams;
 use Database\Factories\UserFactory;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -18,6 +19,7 @@ use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ResetPasswordNotification;
 
 /**
  * @property int $id
@@ -67,5 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 
     public function owedOrganizations(): HasMany {
         return $this->hasMany(Organization::class, 'owner_id');
+    }
+
+    public function sendPasswordResetNotification($token) {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
