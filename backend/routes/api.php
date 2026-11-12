@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']); //? Loga usuatio.
 Route::post('/users', [UserController::class, 'store']); //? Cria usuario.
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']); //? Envia email para redefinir senha.
+Route::post('/reset-password', [NewPasswordController::class, 'store']); //? Redefine senha do usuário.
 
 //? Torna as rotas abaixo privadas so acesseveis com autenticação.
 Route::middleware('auth:sanctum')->group(function () {
@@ -21,5 +22,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update', [AuthController::class, 'update']); //? Atualiza os dados do usuário.
     Route::post('/logout', [AuthController::class, 'logout']); //? Desloga usuário.
     Route::delete('/users/{id}', [UserController::class, 'destroy']); //? Deleta usuario.
-    Route::post('/reset-password', [NewPasswordController::class, 'store']); //? Redefine senha do usuário.
 });

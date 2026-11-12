@@ -11,11 +11,12 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class NewPasswordController extends Controller
 {
+
     public function store(Request $request) {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6',
         ]);
 
         $status = Password::reset(
@@ -32,13 +33,13 @@ class NewPasswordController extends Controller
         if ($status === Password::PASSWORD_RESET) {
             return response()->json([
                 'success' => true,
-                'message' => _($status)
+                'message' => __($status)
             ], 200);
         }
 
         return response()->json([
             'success' => false,
-            'message' => _($status)
+            'message' => __($status)
         ], 400);
     }
 }
