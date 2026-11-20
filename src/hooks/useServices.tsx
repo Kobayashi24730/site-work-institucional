@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { Services } from "@/services/services";
 import ForgotPassword from '../../backend/resources/js/pages/auth/forgot-password';
+import { fluentValidationResolver } from "@hookform/resolvers/fluentvalidation-ts/src/fluentvalidation-ts.js";
 
 export function useServices() {
     const [loading, setLoading] = useState(false);
@@ -55,9 +56,11 @@ export function useServices() {
             const response = await Services.updateUser(data);
             if (response) {
                 toast.success("Senha atualizada com sucesso.");
-            } else {
-                toast.error("Erro ao atualizar a senha.");
+                return {success: true, data: response}
             }
+            const fallBackErro = "Erro ao atualizar a senha."
+            toast.error(fallBackErro);
+            return {success: false, data: fallBackErro};
         } catch (err) {
             console.error("Detalhes do erro:", err.response?.data || err);
             const errorMessage =
@@ -80,12 +83,17 @@ export function useServices() {
                 toast.error("Erro ao enviar E-mail de redefinição.")
             }
         } catch (err) {
-            console.error("Detalhes do erro:", err.response?.data || err);
             const errorMessage =
-                err.response?.data?.message ||
+                err.response?.data ||
                 err.message ||
                 "Erro ao enviar email ao user.";
-            return { success: false, message: errorMessage };
+            
+            if (errorMessage?.laravel_status === "Please wait before retrying.") {
+                toast.warning("Aguarde um instante antes de solicitar um novo e-mail de recuperação.");
+            } else {
+                toast.error(errorMessage || "Erro ao enviar e-mail de recuperação.");
+            }
+            console.log("Erro ao enviar email de forgot para o usuario ", errorMessage);
         } finally {
             setLoading(false);
         }

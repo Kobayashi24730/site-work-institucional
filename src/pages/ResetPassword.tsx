@@ -47,12 +47,14 @@ export function ResetPassword() {
                 password: data.password
             });
 
-            if (result.success) {
+            if (result?.success) {
                 toast.success("Senha atualizada com sucesso!");
                 navigate("/");
             } else {
                 toast.error(result?.message || "Erro ao atualizar a senha.");
             }
+
+            console.log(result);
         } catch (err) {
             console.error("Detalhes do erro:", err.response?.data || err);
             const errorMessage =

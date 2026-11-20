@@ -1,5 +1,5 @@
 import { AnimatedSections } from "@/components/AnimatedSections";
-import { Trash2, Upload, User as UserIcon, LogOut } from "lucide-react";
+import { Trash2, Upload, User as UserIcon, LogOut, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -17,7 +17,7 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { useServices } from "@/hooks/useServices";
 import { useEffect, useState } from "react";
-import ForgotPassword from '../../backend/resources/js/pages/auth/forgot-password';
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
     name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
@@ -28,6 +28,7 @@ export function Profile() {
     const { user, signOut } = useAuth();
     const { deleteUser, ForgotPassword } = useServices();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -55,8 +56,10 @@ export function Profile() {
         setLoading(true);
         try {
             const response = await deleteUser(data);
-            if (response) toast.success("Successo ao deletar conta.");
-            else toast.error("Erro ao tentar deletar conta.");
+            if (response) {
+                signOut();
+                navigate("/");
+            }
         } catch (err) {
             console.log("Erro ao deletar user ", err);
         } finally {
@@ -71,9 +74,7 @@ export function Profile() {
         }
         setLoading(true);
         try {
-            const response = await ForgotPassword(data);
-            if (response) toast.success("Successo ao enviar um email de recuperaão");
-            else toast.error("Erro ao enviar email.");
+            await ForgotPassword(data);
         } catch (err) {
             console.error("Erro ao enviar email de forgot para o usuario", err);
         } finally {
@@ -222,9 +223,9 @@ export function Profile() {
                                 type="button"
                                 variant="outline"
                                 className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 rounded-lg font-medium"
-                                onClick={() => {deleteUser(user)}}
+                                onClick={() => {onDelUser(user)}}
                             >
-                                <Trash2 className="h-4 w-4" /> Deletar minha conta
+                                {loading ? <Loader2 className="w-4 h-4 animate-spin"/> : <><Trash2 className="h-4 w-4" /> Deletar minha conta</>}
                             </Button>
 
                             <Button
@@ -233,7 +234,7 @@ export function Profile() {
                                 className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 rounded-lg font-medium"
                                 onClick={() => {forgotPassword(user)}}
                             >
-                                <Trash2 className="h-4 w-4" /> Redefinir senha
+                                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Trash2 className="h-4 w-4" /> Redefinir senha</>}
                             </Button>
                         </div>
                     </div>
