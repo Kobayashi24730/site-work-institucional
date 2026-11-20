@@ -16,7 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import { useServices } from "@/hooks/useServices";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ForgotPassword from '../../backend/resources/js/pages/auth/forgot-password';
 
 const formSchema = z.object({
     name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
@@ -25,6 +26,8 @@ const formSchema = z.object({
 
 export function Profile() {
     const { user, signOut } = useAuth();
+    const { deleteUser, ForgotPassword } = useServices();
+    const [loading, setLoading] = useState(false);
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -46,6 +49,36 @@ export function Profile() {
 
     const onSubmit = async (data) => {
         toast.success("Dados atualizados com sucesso.");
+    }
+
+    const onDelUser = async (data) => {
+        setLoading(true);
+        try {
+            const response = await deleteUser(data);
+            if (response) toast.success("Successo ao deletar conta.");
+            else toast.error("Erro ao tentar deletar conta.");
+        } catch (err) {
+            console.log("Erro ao deletar user ", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const forgotPassword = async (data) => {
+        if (!user?.email) {
+            toast.error("E-mail do usuario não encontrado.")
+            return;
+        }
+        setLoading(true);
+        try {
+            const response = await ForgotPassword(data);
+            if (response) toast.success("Successo ao enviar um email de recuperaão");
+            else toast.error("Erro ao enviar email.");
+        } catch (err) {
+            console.error("Erro ao enviar email de forgot para o usuario", err);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -189,9 +222,18 @@ export function Profile() {
                                 type="button"
                                 variant="outline"
                                 className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 rounded-lg font-medium"
-                                onClick={() => {}}
+                                onClick={() => {deleteUser(user)}}
                             >
                                 <Trash2 className="h-4 w-4" /> Deletar minha conta
+                            </Button>
+
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 rounded-lg font-medium"
+                                onClick={() => {forgotPassword(user)}}
+                            >
+                                <Trash2 className="h-4 w-4" /> Redefinir senha
                             </Button>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-    senha: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+    password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
 });
 
 export function ResetPassword() {
@@ -33,21 +33,21 @@ export function ResetPassword() {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            senha: "",
+            password: "",
         }
     });
 
     const onSubmit = async (data) => {
         setLoading(true);
         try {
+            localStorage.removeItem("token");
             const result = await updatePassword({
                 token,
                 email,
-                password: data.senha,
-                password_confirmation: data.senha
+                password: data.password
             });
 
-            if (result && result.success) {
+            if (result.success) {
                 toast.success("Senha atualizada com sucesso!");
                 navigate("/");
             } else {
@@ -82,7 +82,7 @@ export function ResetPassword() {
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                             <FormField
                                 control={form.control}
-                                name="senha"
+                                name="password"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="text-slate-700">Nova Senha</FormLabel>

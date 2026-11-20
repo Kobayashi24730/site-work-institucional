@@ -23,16 +23,22 @@ export const Services = {
         return response.data;
     },
     updateUser: async (data) => {
-        const response = await api.post(`/reset-password/`, {
+        const response = await api.post(`/reset-password`, {
             token: data.token,
             email: data.email,
-            password: data.password,
-            password_confirmation: data.password
+            password: data.password
         });
         return response.data;
     },
-    deleteUser: async (id) => {
-        const response = await api.delete(`/users/${id}`);
+    deleteUser: async (data) => {
+        const response = await api.delete(`/users/${data.id}`);
+        return response.data;
+    },
+    forgotPassword: async (data) => {
+        const response = await api.post(`/forgot-password`, {
+            token: data.token,
+            email: data.email
+        });
         return response.data;
     }
 }

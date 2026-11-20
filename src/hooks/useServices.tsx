@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { Services } from "@/services/services";
+import ForgotPassword from '../../backend/resources/js/pages/auth/forgot-password';
 
 export function useServices() {
     const [loading, setLoading] = useState(false);
@@ -69,10 +70,32 @@ export function useServices() {
         }
     }
 
+    const ForgotPassword = async (data) => {
+        setLoading(true);
+        try {
+            const response = await Services.forgotPassword(data);
+            if (response) {
+                toast.success("E-mail de redefinição de senha enviado com sucesso.")
+            } else {
+                toast.error("Erro ao enviar E-mail de redefinição.")
+            }
+        } catch (err) {
+            console.error("Detalhes do erro:", err.response?.data || err);
+            const errorMessage =
+                err.response?.data?.message ||
+                err.message ||
+                "Erro ao enviar email ao user.";
+            return { success: false, message: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         createUser,
         deleteUser,
         updatePassword,
         loading,
+        ForgotPassword
     };
 }
