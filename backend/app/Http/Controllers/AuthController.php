@@ -94,7 +94,7 @@ class AuthController extends Controller{
 
         $request->validate([
             'name' => 'sometimes|string|max:255',
-            'senha' => 'sometimes|string|min:6'
+            'email' => 'sometimes|email|max:255|unique:users,email,' . $user->id,
         ]);
 
         $data=[];
@@ -103,11 +103,13 @@ class AuthController extends Controller{
             $data['name'] = $request->name;
         }
 
-        if ($request->filled('senha')) {
-            $data['password'] = Hash::make($request->senha);
+        if ($request->filled('email')) {
+            $data['email'] = $request->email;
         }
 
-        $user->update($data);
+        if (!empty($data)) {
+            $user->update($data);
+        }
 
         return response()->json([
             'message' => 'Perfil atualizado com sucesso',

@@ -99,11 +99,30 @@ export function useServices() {
         }
     }
 
+    const updateCredenciais = async (data) => {
+        setLoading(true);
+        try {
+            const response = await Services.UpdateCredenciais(data);
+            if (response) {
+                toast.success("Successo ao atualizar as credenciais.");
+                return response;
+            }
+            toast.error("Erro ao atualizar credenciais.");
+            return null;
+        } catch (err: any) {
+            toast("Erro ao atulizar credenciais ", err.response?.data || err.messsage);
+            console.log("Erro ao atualizar credenciais, data -> ", err)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         createUser,
         deleteUser,
         updatePassword,
         loading,
-        ForgotPassword
+        ForgotPassword,
+        updateCredenciais
     };
 }

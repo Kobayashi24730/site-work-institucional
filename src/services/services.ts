@@ -1,4 +1,5 @@
 import {api} from "@/api/api";
+import ConfirmedPasswordStatusController from '../../backend/resources/js/actions/Laravel/Fortify/Http/Controllers/ConfirmedPasswordStatusController';
 
 api.interceptors.request.use(config => {
     const token = localStorage.getItem('@App:token');
@@ -38,6 +39,14 @@ export const Services = {
         const response = await api.post(`/forgot-password`, {
             token: data.token,
             email: data.email
+        });
+        return response.data;
+    },
+    UpdateCredenciais: async (data) => {
+        const response = await api.put(`/update`, {
+            token: data.token,
+            email: data.email,
+            name: data.name
         });
         return response.data;
     }
