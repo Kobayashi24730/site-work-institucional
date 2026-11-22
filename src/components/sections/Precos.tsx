@@ -1,8 +1,15 @@
 import { useState } from "react";
 import {Icon} from "@/components/layout/paths";
 import { AnimatedSections } from '../AnimatedSections';
+import { Button } from "../ui/button";
+
 export function Precos() {
     const [annual, setAnnual] = useState(true);
+    const [openSMSLabel,setOpenSMSLabel] = useState(false);
+
+    const onSubmit = async () => {
+      return;
+    }
 
     return (
         <section className="pricing-section" id="precos">
@@ -21,7 +28,7 @@ export function Precos() {
                 <span className="plan-name">Essencial</span>
                 <h3>Para começar a organizar</h3>
                 <div className="price"><sup>R$</sup><b>{annual ? "79" : "99"}</b><span>/usuário<br />por mês</span></div>
-                <button>Começar grátis</button>
+                <Button onClick={() => onSubmit()}>Começar grátis</Button>
                 <ul>
                   <li><Icon name="check" size={15} /> Caixa de entrada compartilhada</li>
                   <li><Icon name="check" size={15} /> Até 5 atendentes</li>
@@ -34,7 +41,7 @@ export function Precos() {
                 <span className="plan-name">Profissional</span>
                 <h3>Para equipes em crescimento</h3>
                 <div className="price"><sup>R$</sup><b>{annual ? "119" : "149"}</b><span>/usuário<br />por mês</span></div>
-                <button>Testar o Profissional</button>
+                <Button onClick={() => onSubmit()}>Testar o Profissional</Button>
                 <ul>
                   <li><Icon name="check" size={15} /> Tudo do Essencial</li>
                   <li><Icon name="check" size={15} /> Até 20 atendentes</li>
@@ -48,7 +55,7 @@ export function Precos() {
                 <h3>Para operações complexas</h3>
                 <div className="custom-price">Sob medida</div>
                 <p className="custom-copy">Uma solução desenhada para sua operação.</p>
-                <button>Falar com especialista</button>
+                <Button onClick={() => setOpenSMSLabel(true)}>Falar com especialista</Button>
                 <ul>
                   <li><Icon name="check" size={15} /> Tudo do Profissional</li>
                   <li><Icon name="check" size={15} /> Atendentes ilimitados</li>
