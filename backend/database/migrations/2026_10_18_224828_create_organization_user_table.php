@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('organization_user', function (Blueprint $table) {
             $table->foreignId('organization_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('role')->default('number');
+            $table->string('role')->default('member');
             $table->timestamps();
 
             $table->primary(['organization_id', 'user_id']);

@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('owner_id')-> constrained('users');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('plan')->nullable();
+            $table->string('billing_cycle')->nullable();
+            $table->unsignedInteger('seats_limit')->nullable();
+            $table->string('billing_cycle')->nullable();
             $table->timestamps();
         });
     }
